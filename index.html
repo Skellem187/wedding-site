@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Countdown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+  <style>
+    .parisienne-regular {
+  font-family: "Parisienne", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+    body {
+      font-family: "Parisienne", cursive;
+      font-weight: 400;
+      font-style: normal;
+      background: #e79ab4;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+
+      background-image: url(wedding.jpg);
+      background-position: center;
+      background-size: cover;
+        }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #b03060;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .time-box {
+      background: #f8b6d7;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .label {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      font-weight: normal;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Countdown to the the day 💍</h1>
+  <div class="countdown">
+    <div class="time-box">
+      <div id="days">0</div>
+      <div class="label">Days</div>
+    </div>
+    <div class="time-box">
+      <div id="hours">0</div>
+      <div class="label">Hours</div>
+    </div>
+    <div class="time-box">
+      <div id="minutes">0</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div class="time-box">
+      <div id="seconds">0</div>
+      <div class="label">Seconds</div>
+    </div>
+  </div>
+
+  <div>
+    <h1 style="font-weight: bolder;">A ❤︎ A</h1>
+  </div>
+  <style>
+    
+  </style>
+
+  <script>
+    function getNextSaturdayAt11AM() {
+      const now = new Date();
+      const dayOfWeek = now.getDay(); // 0 (Sun) to 6 (Sat)
+      const daysUntilNextSaturday = (13 - dayOfWeek) % 7 || 7;
+      const nextSaturday = new Date(now);
+      nextSaturday.setDate(now.getDate() + daysUntilNextSaturday);
+      nextSaturday.setHours(11, 0, 0, 0);
+      return nextSaturday;
+    }
+
+    const targetDate = getNextSaturdayAt11AM();
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.querySelector('.countdown').innerHTML = "<h2>🎉 It's Wedding Time! 🎉</h2>";
+        return;
+      }
+
+      const seconds = Math.floor((diff / 1000) % 60);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
